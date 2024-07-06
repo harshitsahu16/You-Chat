@@ -13,6 +13,8 @@ import CrossButton from '../../components/Icons/CrossButton';
 import Logout from '../../components/Icons/Logout';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL = 'https://youchat-5e1g.onrender.com';
+
 
 const capitalizeFirstLetter = (name) => {
     if (!name) return '';
@@ -58,7 +60,7 @@ const Dashboard = () => {
         if(user){
             const loggedInUser = JSON.parse(localStorage.getItem('user:detail'));
             const fetchConversations = async() => {
-            const res = await fetch(`${window.location.origin}/api/conversations/${loggedInUser.id}`, {
+            const res = await fetch(`${BASE_URL}/api/conversations/${loggedInUser.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +76,7 @@ const Dashboard = () => {
     useEffect(() => {
         if(user){
             const fetchUsers = async() => {
-                const res = await fetch(`${window.location.origin}/api/users/${user?.id}` , {
+                const res = await fetch(`${BASE_URL}/api/users/${user?.id}` , {
                     method: 'GET',
                     headers: {
                         'Content-Type' : 'application/json',
@@ -88,7 +90,7 @@ const Dashboard = () => {
     },[user]);
 
     const fetchMessages = async(conversationId, receiver) => {
-        const res = await fetch(`${window.location.origin}/api/message/${conversationId}?senderId=${user?.id}&&receiverId=${receiver?.receiverId}` , {
+        const res = await fetch(`${BASE_URL}/api/message/${conversationId}?senderId=${user?.id}&&receiverId=${receiver?.receiverId}` , {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -105,7 +107,7 @@ const Dashboard = () => {
             conversationId: messages?.conversationId,
             message
         });
-        const res = await fetch(`${window.location.origin}/api/message` , {
+        const res = await fetch(`${BASE_URL}/api/message` , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
