@@ -38,7 +38,7 @@ const Dashboard = () => {
     
 
     useEffect(() => {
-        setSocket(io('http://localhost:8080'))
+        setSocket(io('https://youchat-5e1g.onrender.com'))
     },[]);
 
     useEffect(() => {

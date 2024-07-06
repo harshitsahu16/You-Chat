@@ -3,13 +3,17 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
-const io = require('socket.io')(8080, {
+const app = express();
+const server = require('http').createServer(app);
+
+const io = require('socket.io')(server, {
     cors: {
-        origin: '*',
+        origin: 'https://youchat-5e1g.onrender.com',
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
     }
 });
 
-const app = express();
 
 //connnect db
 require('./db/connection');
@@ -219,6 +223,6 @@ app.get('/api/users/:userId' , async(req,res) => {
     }
 })
 
-app.listen(port , () => {
+server.listen(port , () => {
     console.log('Server is listening on port' + port);
 });
